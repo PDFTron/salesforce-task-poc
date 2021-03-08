@@ -1,0 +1,50 @@
+<template>
+    <!-- use lightning-record-edit form for supported UI projects - Task not supported so custom form is necessary-->
+    <lightning-card title="Create new task" icon-name="utility:task" class="slds-p-around_x-small">
+        <template if:true={error}>
+            <!-- conditional error rendering-->
+            <lightning-card>
+                <p style="color: red">Error: {error.body.message}</p>
+            </lightning-card>
+        </template>
+        <template if:false={loadFinished}>
+            <!-- conditional spinner during load-->
+            <div class="spinnerContainer">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+        <template if:true={loadFinished}>
+            <div id="taskFields" class="slds-p-around_x-small">
+                <!-- Assigned to -->
+                <c-lookup onsearch={handleSearch} onselectionchange={handleSelectionChange} label="Assigned To"
+                    placeholder="Search People...">
+                </c-lookup>
+                <!-- Subject -->
+                <lightning-input label="Subject" value={subject} onchange={handleSubjectChange}></lightning-input>
+                <!-- Type -->
+                <lightning-combobox name="status" label="Status" value="status" placeholder="Select Status"
+                    options={statusPicklistValues} onchange={handleStatusChange}>
+                </lightning-combobox>
+                <!-- Priority -->
+                <lightning-combobox name="priority" label="Priority" value="priority" placeholder="Select Priority"
+                    options={priorityPicklistValues} onchange={handlePriorityChange}>
+                </lightning-combobox>
+                <!-- Description -->
+                <lightning-textarea label="Description" value={description} onchange={handleDescriptionChange}>
+                </lightning-textarea>
+            </div>
+            <div id="attachmentCombobox" class="slds-p-around_x-small">
+                <!-- Available Documents -->
+                <lightning-combobox name="documents" value={value} label="Choose an attachment"
+                    placeholder="Choose an attachment..." options={picklistOptions} variant="label-hidden"
+                    onchange={handleChange}></lightning-combobox>
+            </div>
+            <div class="slds-p-around_x-small">
+                <!-- Submit button -->
+                <lightning-button class="slds-align_absolute-center" variant="brand" label="Create Task" title="Create Task"
+                    onclick={addTask}>
+                </lightning-button>
+            </div>
+        </template>
+    </lightning-card>
+</template>

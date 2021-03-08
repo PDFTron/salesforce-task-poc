@@ -1,0 +1,14 @@
+<template>
+        <lightning-card>
+            <template if:true={error}>
+                <!-- conditional error rendering-->
+                <lightning-card>
+                    <p style="color: red">Error: {error.body.message}</p>
+                </lightning-card>
+            </template>
+            <div>
+                <p>{cvId}</p>
+            </div>
+            <div class="pdf_viewer slds-p-around_small slds-grid slds-grid--vertical-stretch" id='pdf_viewer'></div>
+        </lightning-card>
+</template>

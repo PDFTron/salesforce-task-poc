@@ -78,7 +78,9 @@ export default class PdftronTaskForm extends NavigationMixin(LightningElement) {
                 console.log(result);
                 this.error = undefined;
                 this.showNotification('Success', `Successfully created Task! (ID: ${result}). `, 'success');
-                this.navigateToTaskPage(result);
+
+                //optional - open Task Record Detail page after task creation
+                //this.navigateToTaskPage(result);
             })
             .catch((error) => {
                 this.error = error;

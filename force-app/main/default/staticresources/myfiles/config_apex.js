@@ -85,6 +85,9 @@ window.addEventListener('viewerLoaded', async function () {
     }
     header.get('viewControlsButton').insertBefore(myCustomButton);
   });
+
+  console.log("Posting loaded");
+  parent.postMessage({ type: 'LOADED' }, '*');
 });
 
 window.addEventListener("message", receiveMessage, false);
@@ -93,23 +96,23 @@ function receiveMessage(event) {
   if (event.isTrusted && typeof event.data === 'object') {
     switch (event.data.type) {
       case 'OPEN_DOCUMENT':
-        event.target.readerControl.loadDocument(event.data.file)
+        event.target.readerControl.loadDocument(event.data.file);
         break;
       case 'OPEN_DOCUMENT_BLOB':
-        const { blob, extension, filename, documentId } = event.data.payload;
-        event.target.readerControl.loadDocument(blob, { extension, filename, documentId })
+        const { blob, extension, filename, documentId } = event.data.document;
+        event.target.readerControl.loadDocument(blob, { extension, filename, documentId });
         break;
       case 'DOCUMENT_SAVED':
         readerControl.showErrorMessage('Document saved!')
         setTimeout(() => {
           readerControl.closeElements(['errorModal', 'loadingModal'])
-        }, 2000)
+        }, 2000);
         break;
       case 'LMS_RECEIVED':
-        readerControl.showErrorMessage('Link received: ' + event.data.message);
+        readerControl.showErrorMessage('LMS received: ' + event.data.message);
         setTimeout(() => {
           readerControl.closeElements(['errorModal', 'loadingModal'])
-        }, 2000)
+        }, 2000);
         break;
       case 'CLOSE_DOCUMENT':
         event.target.readerControl.closeDocument()

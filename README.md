@@ -1,6 +1,6 @@
-# Salesforce DX Project: Next Steps
+# salesforce-task-poc
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+Code sample that lets users create new tasks whilst attaching documents related to other objects. When task is processed cross-object document is pulled into page layout automatically for user annotation 
 
 ## How Do You Plan to Deploy Your Changes?
 
